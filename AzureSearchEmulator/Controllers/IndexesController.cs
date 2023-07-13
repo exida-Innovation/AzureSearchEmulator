@@ -68,6 +68,40 @@ public class IndexesController : ODataController
         return Created(index);
     }
 
+    [HttpPut]
+    [Route("indexes({key})")]
+    [Route("indexes/{key}")]
+    public async Task<IActionResult> Put(string key)
+    {
+        using var sr = new StreamReader(Request.Body);
+        var indexJson = await sr.ReadToEndAsync();
+        var index = JsonSerializer.Deserialize<SearchIndex>(indexJson, _jsonSerializerOptions);
+
+        if (index == null || !ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        try
+        {
+
+            if(await _searchIndexRepository.Get(key) is SearchIndex searchIndex)
+            {
+                return Ok(searchIndex);
+            }
+            else 
+            {
+                await _searchIndexRepository.Create(index);
+            }
+        }
+        catch (SearchIndexExistsException)
+        {
+            return Conflict();
+        }
+
+        return Created(index);
+    }
+
     [HttpDelete]
     [Route("indexes({key})")]
     [Route("indexes/{key}")]
