@@ -56,7 +56,8 @@ public static class AnalyzerHelper
             "da.lucene" => new DanishAnalyzer(Version),
             "de.lucene" => new GermanAnalyzer(Version),
             "el.lucene" => new GreekAnalyzer(Version),
-            "en.lucene" => new EnglishAnalyzer(Version),
+            "en.lucene" or "en.microsoft" => new EnglishAnalyzer(Version),
+            "ja.lucene" or "ja.microsoft" => new Lucene.Net.Analysis.Ja.JapaneseAnalyzer(Version),
             "es.lucene" => new SpanishAnalyzer(Version),
             "eu.lucene" => new BasqueAnalyzer(Version),
             "fa.lucene" => new PersianAnalyzer(Version),
@@ -78,7 +79,7 @@ public static class AnalyzerHelper
             "ru.lucene" => new RussianAnalyzer(Version),
             "sv.lucene" => new SwedishAnalyzer(Version),
             "tr.lucene" => new TurkishAnalyzer(Version),
-            _ => throw new NotSupportedException(), // TODO: Japanese, Korean, Polish, Thai, Chinese, "Microsoft", and custom analyzers
+            _ => throw new NotSupportedException(), // TODO: Korean, Polish, Thai, Chinese, "Microsoft", and custom analyzers
         };
     }
 

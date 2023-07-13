@@ -1,31 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<UserSecretsId>6751dc28-24d4-4572-8f44-e652593dd678</UserSecretsId>
-		<Nullable>enable</Nullable>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Version>0.0.1</Version>
-		<WarningsAsErrors>Nullable</WarningsAsErrors>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <UserSecretsId>6751dc28-24d4-4572-8f44-e652593dd678</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Version>0.0.1</Version>
+        <WarningsAsErrors>Nullable</WarningsAsErrors>
+        <UseArtifactsOutput>true</UseArtifactsOutput>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Lucene.Net" Version="4.8.0-beta00017" />
-		<PackageReference Include="Lucene.Net.Analysis.Common" Version="4.8.0-beta00017" />
-		<PackageReference Include="Lucene.Net.Highlighter" Version="4.8.0-beta00017" />
-		<PackageReference Include="Lucene.Net.Queries" Version="4.8.0-beta00017" />
-		<PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00017" />
-		<PackageReference Include="Microsoft.AspNetCore.OData" Version="8.2.3" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Lucene.Net" Version="4.8.0-beta00017" />
+        <PackageReference Include="Lucene.Net.Analysis.Common" Version="4.8.0-beta00017" />
+        <PackageReference Include="Lucene.Net.Highlighter" Version="4.8.0-beta00017" />
+        <PackageReference Include="Lucene.Net.Queries" Version="4.8.0-beta00017" />
+        <PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00017" />
+        <PackageReference Include="Microsoft.AspNetCore.OData" Version="8.2.3" />
+    </ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="indexes\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="aspnetapp.pfx">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
+    <ItemGroup>
+        <None Update="aspnetapp.pfx">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
 
 </Project>
