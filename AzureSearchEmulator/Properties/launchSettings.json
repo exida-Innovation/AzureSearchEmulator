@@ -1,5 +1,5 @@
 {
-  "profiles": {  
+  "profiles": {
     "AzureSearchEmulator": {
       "commandName": "Project",
       "environmentVariables": {
@@ -8,10 +8,23 @@
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:5123"
     },
-    "Docker": {
-      "commandName": "Docker",
-      "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+    "WSL": {
+      "commandName": "WSL2",
+      "launchUrl": "https://localhost:5123",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://localhost:5123"
+      },
+      "distributionName": ""
+    },
+    "Container (.Net Sdk)": {
+      "commandName": "SdkContainer",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/",
+      "environmentVariables": {
+        "ASPNETCORE_HTTPS_PORTS": "5123",
+        "ASPNETCORE_Kestrel__Certificates__Default__Password": "password",
+        "ASPNETCORE_Kestrel__Certificates__Default__Path": "/app/aspnetapp.pfx"
+      },
       "publishAllPorts": true,
       "useSSL": true
     }

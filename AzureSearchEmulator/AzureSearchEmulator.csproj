@@ -9,6 +9,8 @@
         <Version>0.0.1</Version>
         <WarningsAsErrors>Nullable</WarningsAsErrors>
         <UseArtifactsOutput>true</UseArtifactsOutput>
+        <RuntimeIdentifiers>linux-x64</RuntimeIdentifiers>
+        <EnableSdkContainerDebugging>True</EnableSdkContainerDebugging>
     </PropertyGroup>
 
     <ItemGroup>
@@ -24,6 +26,18 @@
         <None Update="aspnetapp.pfx">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ContainerEnvironmentVariable Include="ASPNETCORE_HTTPS_PORTS">
+            <Value>5123</Value>
+        </ContainerEnvironmentVariable>
+        <ContainerEnvironmentVariable Include="ASPNETCORE_Kestrel__Certificates__Default__Password">
+            <Value>password</Value>
+        </ContainerEnvironmentVariable>
+        <ContainerEnvironmentVariable Include="ASPNETCORE_Kestrel__Certificates__Default__Path">
+            <Value>aspnetapp.pfx</Value>
+        </ContainerEnvironmentVariable>
     </ItemGroup>
 
 </Project>

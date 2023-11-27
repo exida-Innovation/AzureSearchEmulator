@@ -12,5 +12,12 @@ public class Program
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder.UseStartup<Startup>();
-            });
+            })
+        .ConfigureAppConfiguration((hostingContext, config) =>
+        {
+            if (hostingContext.HostingEnvironment.IsEnvironment("LocalDocker"))
+            {
+                config.AddUserSecrets<Program>();
+            }
+        });
 }
