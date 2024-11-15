@@ -68,7 +68,7 @@ public class IndexesController(
     {
         using var sr = new StreamReader(Request.Body);
         var indexJson = await sr.ReadToEndAsync();
-        var index = JsonSerializer.Deserialize<SearchIndex>(indexJson, _jsonSerializerOptions);
+        var index = JsonSerializer.Deserialize<SearchIndex>(indexJson, jsonSerializerOptions);
 
         if (index == null || !ModelState.IsValid)
         {
@@ -78,47 +78,13 @@ public class IndexesController(
         try
         {
 
-            if(await _searchIndexRepository.Get(key) is SearchIndex searchIndex)
+            if(await searchIndexRepository.Get(key) is SearchIndex searchIndex)
             {
                 return Ok(searchIndex);
             }
             else 
             {
-                await _searchIndexRepository.Create(index);
-            }
-        }
-        catch (SearchIndexExistsException)
-        {
-            return Conflict();
-        }
-
-        return Created(index);
-    }
-
-    [HttpPut]
-    [Route("indexes({key})")]
-    [Route("indexes/{key}")]
-    public async Task<IActionResult> Put(string key)
-    {
-        using var sr = new StreamReader(Request.Body);
-        var indexJson = await sr.ReadToEndAsync();
-        var index = JsonSerializer.Deserialize<SearchIndex>(indexJson, _jsonSerializerOptions);
-
-        if (index == null || !ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        try
-        {
-
-            if(await _searchIndexRepository.Get(key) is SearchIndex searchIndex)
-            {
-                return Ok(searchIndex);
-            }
-            else 
-            {
-                await _searchIndexRepository.Create(index);
+                await searchIndexRepository.Create(index);
             }
         }
         catch (SearchIndexExistsException)
