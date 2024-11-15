@@ -1,5 +1,4 @@
 # Azure Search Emulator
-[![.NET](https://github.com/feature23/AzureSearchEmulator/actions/workflows/dotnet.yml/badge.svg)](https://github.com/feature23/AzureSearchEmulator/actions/workflows/dotnet.yml)
 
 A local emulator for Azure (Cognitive) Search Service.
 
@@ -58,30 +57,22 @@ This uses the SimpleFSDirectory Lucene.net directory class to manage its data.
 
 Authentication is not yet implemented. If you're using the Azure Search SDK, you can provide any value for the `AzureKeyCredential` constructor parameter.
 
-## Building and Running with Docker
+## Building and Running Container with .NET CLI and Podman
 
-It is not required to use Docker to run this project, see the Quick Start section above. 
+Podman or Docker daemon is required.
 
-The easiest way to run with Docker is to use Docker Compose. Run the following from the repo root:
+Simply run the below command to deploy:
 
-```bash
-docker compose up -d
+```powershell
+dotnet publish --os linux --arch x64 -c Release /p:PublishProfile=DefaultContainer
 ```
 
-This will build the image, create the volume, and run the container in the background at https://localhost:5081 and http://localhost:5080. See the `docker-compose.yml` file for how this works.
+To run, simply specify the volumne mount to persist the indexes:
 
-If you prefer to do this without Docker Compose (HTTP only):
-
-```bash
-# create a volume to persist your indexes across runs
-docker volume create az-search-emu
-
-# from repo root
-docker build . -t azure-search-emulator
-
-# run the container on port 5080 (feel free to change) and mount the volume
-docker run -dp 5080:80 -v az-search-emu:/app/indexes azure-search-emulator
+```powershell
+podman run --rm -d  -v "~/dev/search:/app/indexes" --name azuresearch -p 5123:5123/tcp localhost/azuresearchemulator:latest
 ```
+
 
 ## License
 
