@@ -13,14 +13,11 @@ using Microsoft.OData.ModelBuilder;
 
 namespace AzureSearchEmulator;
 
-public class Startup
+public class Startup(IConfiguration configuration)
 {
-    public Startup(IConfiguration configuration)
-    {
-        Configuration = configuration;
-    }
-
-    public IConfiguration Configuration { get; }
+    private const string CorsDefaultPolicyName = "AllowAllOrigins";
+    
+    public IConfiguration Configuration { get; } = configuration;
 
     // This method gets called by the runtime. Use this method to add services to the container.
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -29,6 +26,18 @@ public class Startup
         var model = GetEdmModel();
 
         services.Configure<EmulatorOptions>(Configuration.GetSection("Emulator"));
+
+        services.AddCors(options =>
+        {
+            options.AddPolicy(CorsDefaultPolicyName,
+                builder =>
+                {
+                    builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+        });
 
         services.AddControllers()
             .AddJsonOptions(options =>
@@ -67,6 +76,7 @@ public class Startup
             app.UseDeveloperExceptionPage();
         }
 
+        app.UseCors(CorsDefaultPolicyName);
         app.UseODataRouteDebug();
         app.UseODataQueryRequest();
         app.UseODataBatching();
